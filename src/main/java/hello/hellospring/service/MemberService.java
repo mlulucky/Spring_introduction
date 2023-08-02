@@ -4,12 +4,12 @@ import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service;import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
-
+@Transactional // 🌈 jpa 는 모든 데이터 변경이 트랜잭션 안에서 실행되야 하므로 @Transactional 어노테이션 필요
 public class MemberService { // ctrl + shift + T : 테스트파일 생성
     // 회원서비스 -> repository 필요
     // 🌈 MemberService 객체를 테스트할때에 테스트에서 다시 객체를 생성하여 사용하므로, 서비스 객체와 테스트 서비스객체가 서로다름
@@ -18,10 +18,10 @@ public class MemberService { // ctrl + shift + T : 테스트파일 생성
 
     // 🌈 MemberService 객체를 테스트할때에 테스트에서 사용하는 객체와 서비스 객체가 동일한 객체를 사용하도록
     // -> Service 에서 객체를 생성하는 것이 아니라 생성자에 객체를 주입받아서 사용하도록 바꾼 것!
-    private final MemoryMemberRepository memberRepository;
+    private final MemberRepository memberRepository;
     // MemberService 생성자
 
-    public MemberService(MemoryMemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
